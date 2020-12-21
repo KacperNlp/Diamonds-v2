@@ -1,0 +1,46 @@
+.button {
+  position: relative;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  background-color: transparent;
+  color: inherit;
+  border: 2px solid $fontColor;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: -2px;
+    width: calc(100% + 6px);
+    height: calc(100% - 12px);
+    background: $backGround;
+    transform: scaleY(1);
+    transition: 0.5s ease-in-out;
+    transition-delay: 0.5s;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 6px;
+    height: calc(100% + 6px);
+    width: calc(100% - 12px);
+    background: $backGround;
+    transform: scaleX(1);
+    transition: 0.5s ease-in-out;
+  }
+
+  &:hover::before {
+    transform: scaleY(0);
+  }
+  &:hover::after {
+    transform: scaleX(0);
+  }
+
+  & span {
+    position: relative;
+    z-index: 3;
+  }
+}

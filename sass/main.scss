@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@import "variables";
+
+html {
+  background: $backGround;
+  font-size: $fontSize;
+  color: $fontColor;
+}
+
+@import "game-layer";
+@import "menu";
+@import "buttons";
