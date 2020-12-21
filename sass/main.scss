@@ -7,6 +7,9 @@
 @import "variables";
 
 html {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
   background: $backGround;
   font-size: $fontSize;
   color: $fontColor;
@@ -15,3 +18,7 @@ html {
 @import "game-layer";
 @import "menu";
 @import "buttons";
+
+.hidden {
+  display: none;
+}

@@ -10,11 +10,19 @@
 
 <body>
     <main>
+        <!--Main menu-->
         <div class="game-layer game-layer--menu menu" id="js-menu">
-            <button class="button menu__button" id="js-menu-star-game-button"><span>graj</span></button>
-            <button class="button menu__button" id="js-menu-settings-button"><span>ustawienia</span></button>
+            <button class="button menu__button" id="js-menu-star-game-button"><span>Start game</span></button>
+            <button class="button menu__button" id="js-menu-settings-button"><span>Settings</span></button>
+        </div>
+        <!--Levels screen/layer-->
+        <div class="game-layer game-layer--levels levels hidden" id="js-levels">
+            <button class="button levels__button"></button>
+            <div class="levels__container"></div>
         </div>
     </main>
+
+    <script src="/javascript/MainMenu.esm.js" type="module"></script>
 </body>
 
 </html>
