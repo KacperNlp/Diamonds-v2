@@ -19,6 +19,8 @@
     grid-template-rows: repeat(5, 1fr);
     justify-items: center;
     align-items: center;
+    background: darken($backGround, 5%);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -34,7 +36,12 @@
   font-size: 1.5rem;
   cursor: pointer;
   outline: none;
-  &:hover {
+
+  &.locked {
+    background: #555;
+  }
+
+  &.unlocked:hover {
     background: $fontColor;
     color: $backGround;
     border-radius: 30%;
