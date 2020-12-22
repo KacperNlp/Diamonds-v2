@@ -12,10 +12,10 @@
   }
 
   &__container {
-    width: 100%;
+    width: 60%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(15, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(5, 1fr);
     justify-items: center;
     align-items: center;
@@ -37,5 +37,7 @@
   &:hover {
     background: $fontColor;
     color: $backGround;
+    border-radius: 30%;
+    border-color: darken($fontColor, 20%);
   }
 }

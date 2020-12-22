@@ -1,23 +1,38 @@
 import {WorkiWithHtml, markups} from './WorkiWithHtml.esm.js';
 import {gameLevels} from '../gameData/gameLevels.esm.js'
+import {mainMenu} from '../MainMenu.esm.js'
+import {visbilityOfLayer, HIDDEN_LAYER, VISIBLE_LAYER} from './VisibilityOfLayer.esm.js'
 
 const UNLOCKED_LEVEL_BUTTON_CLASS = 'unlocked';
 const LOCKED_LEVEL_BUTTON_CLASS = 'locked';
 const LEVELS_LAYER_ID = 'js-levels';
 const LEVEL_BUTTONS_CONTAINER_ID = 'js-levels-container';
 const LEVEL_BUTTONS_CLASS = 'level-button';
+const RETURN_TO_MENU_BUTTON_ID = 'js-return-to-menu-button';
 
 //this class shows levels layer with all level (locked and unlocked)
 class LevelsLayer extends WorkiWithHtml{
     constructor(){
         super(LEVELS_LAYER_ID)
         this.buttonsContainer = this.bindToElement(LEVEL_BUTTONS_CONTAINER_ID);
-        this.addLevelButtonsToLevelsLayer();
+        this.initLevelsLayer();
     }
 
-    addLevelButtonsToLevelsLayer(){
+    initLevelsLayer(){
+        const returnToMenuButton = this.bindToElement(RETURN_TO_MENU_BUTTON_ID);
+
+        returnToMenuButton.addEventListener('click', this.#handleOfReturnButton)
+        this.#addLevelButtonsToLevelsLayer();
+    }
+
+    #addLevelButtonsToLevelsLayer(){
         this.#clearLevelButtonsContainer();
         this.#createLevelButtons();
+    }
+
+    #handleOfReturnButton=()=>{
+        visbilityOfLayer.changeVisibilityOfLayer(this.element,HIDDEN_LAYER);
+        visbilityOfLayer.changeVisibilityOfLayer(mainMenu.element, VISIBLE_LAYER);
     }
 
     #clearLevelButtonsContainer(){
