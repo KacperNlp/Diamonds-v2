@@ -1,0 +1,2 @@
+const DIAMOND_WIDTH = 40;
+const DIAMOND_HEIGHT = 40;

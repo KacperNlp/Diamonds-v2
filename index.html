@@ -20,6 +20,18 @@
             <button class="button levels__button" id="js-return-to-menu-button"><span>Return</span></button>
             <div class="levels__container" id="js-levels-container"></div>
         </div>
+        <!--game map/canvas-->
+        <div class="game-layer game hidden" id="js-game-level-container">
+            <div class="game__stats-container">
+                <span class="game__stat" id="js-required-points"></span>
+                <span class="game__stat" id="js-user-points"></span>
+                <span class="game__stat" id="js-hight-score"></span>
+                <span class="game__stat" id="js-user-movement"></span>
+            </div>
+            <div class="game__canvas-container">
+                <canvas id="js-game-map"></canvas>
+            </div>
+        </div>
     </main>
 
     <script src="/javascript/MainMenu.esm.js" type="module"></script>
