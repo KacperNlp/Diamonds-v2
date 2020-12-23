@@ -1,11 +1,11 @@
 export class GameState{
-    constructor(level, requiredScore,  hightScore, currentScore, userMovement){
+    constructor(level, requiredScore,  hightScore, userMovement){
         const requiredScore = requiredScore;
         const hightScore = hightScore;
         const level = level;
 
         this._userMovement = userMovement;
-        this._currentScore = currentScore;
+        this._currentScore = 0;
         this._gameResult = false;
 
         this.decreaseMovement = () => this._userMovement--;
