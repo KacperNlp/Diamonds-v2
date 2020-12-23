@@ -25,7 +25,7 @@ class Game extends WorkiWithHtml{
     }
 
     #gamePanelAnimation(){
-
+        
     }
 }
 
