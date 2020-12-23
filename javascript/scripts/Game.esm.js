@@ -1,6 +1,7 @@
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js';
 import {GameState} from './GameState.esm.js'
 import {gameLevels} from '../gameData/gameLevels.esm.js'
+import {canvas} from './Canvas.esm.js'
 
 const GAME_MAP_CONTAINER_ID = '';
 const GAME_MAP_CANVAS_ID = '';
@@ -25,7 +26,6 @@ class Game extends WorkiWithHtml{
     }
 
     #gamePanelAnimation(){
-        
     }
 }
 

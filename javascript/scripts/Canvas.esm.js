@@ -7,9 +7,10 @@ const CANVAS_HEIGHT = 480;
 class Canvas extends WorkiWithHtml{
     constructor(){
         super(CANVAS_ID)
+        this.canvasConfiguration();
     }
 
-    configureCanvas(){
+    canvasConfiguration(){
         this.ctx = this.element.getContext('2d');
         this.ctx.canvas.width = CANVAS_WIDTH;
         this.ctx.canvas.height = CANVAS_HEIGHT;
