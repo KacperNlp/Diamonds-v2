@@ -3,6 +3,9 @@ import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {mainMenu} from '../MainMenu.esm.js'
 import {visbilityOfLayer, HIDDEN_LAYER, VISIBLE_LAYER} from './VisibilityOfLayer.esm.js'
 import { game } from './Game.esm.js';
+import { media } from './Media.esm.js';
+import { loader } from './Loader.esm.js';
+import {DIAMONDS_SPRITE} from './Diamond.esm.js'
 
 const UNLOCKED_LEVEL_BUTTON_CLASS = 'unlocked';
 const LOCKED_LEVEL_BUTTON_CLASS = 'locked';
@@ -81,6 +84,7 @@ class LevelsLayer extends WorkiWithHtml{
     #buttonEvent = (event) =>{
 
         const level = Number(event.target.getAttribute(LEVEL_BUTTONS_NAME_OF_ATTRIBUTE_WITH_LEVEL));
+        this.#loadLevel();
         game.newGame(level);
 
         this.#changeVisibilityOfLayers();
@@ -96,6 +100,12 @@ class LevelsLayer extends WorkiWithHtml{
         this.buttons.forEach(button =>{
             button.removeEventListener('click', this.#buttonEvent)
         })
+    }
+
+    #loadLevel(){
+        if(!media.diamondSprite){
+            media.diamondSprite = loader.loadImage(DIAMONDS_SPRITE)
+        }
     }
 
 }

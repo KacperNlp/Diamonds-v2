@@ -1,9 +1,9 @@
 import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from '../scripts/Diamond.esm.js'
 
 const NUMBER_OF_ROWS = 10;
-const NUMBER_OF_COLUMNS = 8;
+const NUMBER_OF_COLUMNS = 12;
 const KINDS_OF_DIAMONDS = 6;
-const EMPTY_BLOCK = 99;
+export const EMPTY_BLOCK = 99;
 
 export const gameLevels = [
     {
@@ -20,15 +20,15 @@ export const gameLevels = [
             for(let cell = 0; cell < numberOfCells; cell++){
                 const diamond = {};
 
-                if(cell % NUMBER_OF_COLUMNS){
-                    diamond.posX = cell * DIAMOND_WIDTH;
-                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
+                if(!cell ||cell % NUMBER_OF_COLUMNS){
+                    diamond.posX = (cell % NUMBER_OF_COLUMNS) * DIAMOND_WIDTH;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT - DIAMOND_HEIGHT;
                     diamond.row = numberOfRow;
                     diamond.column = cell % NUMBER_OF_COLUMNS;
                 }else{
                     numberOfRow++;
                     diamond.posX = 0;
-                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT - DIAMOND_HEIGHT;
                     diamond.row = numberOfRow;
                     diamond.column = cell % NUMBER_OF_COLUMNS;
                 }
@@ -36,7 +36,7 @@ export const gameLevels = [
                 if(cell < NUMBER_OF_COLUMNS){
                     diamond.kind = EMPTY_BLOCK;
                 }else{
-                    diamond.kind = Math.floor(Math.random() * KINDS_OF_DIAMONDS + 1);
+                    diamond.kind = Math.floor(Math.random() * KINDS_OF_DIAMONDS);
                 }
 
                 arrayWithDiamonds.push(diamond)

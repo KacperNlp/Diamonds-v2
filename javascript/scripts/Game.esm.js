@@ -3,6 +3,7 @@ import {GameState} from './GameState.esm.js'
 import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
 import { Diamond } from './Diamond.esm.js';
+import { media } from './Media.esm.js';
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -15,7 +16,7 @@ const GAME_STATS_CONTAINERS_ID = {
 
 class Game extends WorkiWithHtml{
     constructor(){
-        super();
+        super(GAME_MAP_CONTAINER_ID);
         this.diamondsMap;
     }
 
@@ -47,7 +48,7 @@ class Game extends WorkiWithHtml{
 
             const diamond = new Diamond(posX, posY, row, column, kind);
             
-            diamond.drawDiamond();
+            diamond.drawDiamond(media.diamondSprite)
         }
     }
 }

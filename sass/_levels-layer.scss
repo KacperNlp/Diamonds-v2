@@ -39,6 +39,7 @@
 
   &.locked {
     background: #555;
+    cursor: default;
   }
 
   &.unlocked:hover {
