@@ -2,23 +2,32 @@ import {WorkiWithHtml} from './WorkiWithHtml.esm.js';
 import {GameState} from './GameState.esm.js'
 import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
+import { Diamond } from './Diamond.esm.js';
 
-const GAME_MAP_CONTAINER_ID = '';
-const GAME_MAP_CANVAS_ID = '';
+const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
+const GAME_STATS_CONTAINERS_ID = {
+    requiredPoints: 'js-required-points',
+    userPoints: 'js-user-points',
+    hightScore: 'js-hight-score',
+    movement: 'js-user-movement'
+}
 
 
 class Game extends WorkiWithHtml{
     constructor(){
         super();
+        this.diamondsMap;
     }
 
     newGame(level = 1){
 
         const lvlIndex = level - 1;
 
-        const {kind, unlocked, pointsToPassLevel, playerMovement, mapArrangement} = gameLevels[lvlIndex];
+        const {unlocked, pointsToPassLevel, playerMovement, mapArrangement} = gameLevels[lvlIndex];
 
         if(!unlocked) return;
+
+        this.diamondsMap = mapArrangement();//creates an array with diamonds
 
         this.gameState = new GameState(level, pointsToPassLevel, 5000, playerMovement)
 
@@ -26,6 +35,20 @@ class Game extends WorkiWithHtml{
     }
 
     #gamePanelAnimation(){
+        this.#drawDiamonds();
+        window.requestAnimationFrame(()=> this.#gamePanelAnimation())
+    }
+
+    #drawDiamonds(){
+
+        for(let  numberOfDiamond = 0; numberOfDiamond < this.diamondsMap.length; numberOfDiamond++){
+
+            const {posX, posY, row, column, kind} = this.diamondsMap[numberOfDiamond]; //get diamond parameters from generated map of diamonds 
+
+            const diamond = new Diamond(posX, posY, row, column, kind);
+            
+            diamond.drawDiamond();
+        }
     }
 }
 

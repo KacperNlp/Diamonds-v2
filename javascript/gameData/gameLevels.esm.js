@@ -1,6 +1,9 @@
+import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from '../scripts/Diamond.esm.js'
+
 const NUMBER_OF_ROWS = 10;
 const NUMBER_OF_COLUMNS = 8;
 const KINDS_OF_DIAMONDS = 6;
+const EMPTY_BLOCK = 99;
 
 export const gameLevels = [
     {
@@ -9,33 +12,37 @@ export const gameLevels = [
         pointsToPassLevel: 5000,
         playerMovement: 30,
         mapArrangement: () => {
-            const diamondsArray = [];
+            const arrayWithDiamonds = [];
+            const numberOfCells = NUMBER_OF_COLUMNS * NUMBER_OF_ROWS;
+            let numberOfRow = 0;
 
-            for(let row = 0; row <= NUMBER_OF_ROWS; row++){
-                const rowArray = [];
-                const columnArray = [];
-                for(let column = 0; column<= NUMBER_OF_COLUMNS; column++){
-                    let kind;
-                    if(row === 0){
-                        kind = false;
-                    }else{
-                        kind = Math.floor(Math.random() * KINDS_OF_DIAMONDS);
-                    }
+            //generate random map with diamonds
+            for(let cell = 0; cell < numberOfCells; cell++){
+                const diamond = {};
 
-                    const diamond = {
-                        row: row,
-                        column: column,
-                        kind: kind,
-                    }
-
-                    columnArray.push(diamond);
+                if(cell % NUMBER_OF_COLUMNS){
+                    diamond.posX = cell * DIAMOND_WIDTH;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
+                    diamond.row = numberOfRow;
+                    diamond.column = cell % NUMBER_OF_COLUMNS;
+                }else{
+                    numberOfRow++;
+                    diamond.posX = 0;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
+                    diamond.row = numberOfRow;
+                    diamond.column = cell % NUMBER_OF_COLUMNS;
                 }
 
-                rowArray.push(columnArray);
-                diamondsArray.push(rowArray);
+                if(cell < NUMBER_OF_COLUMNS){
+                    diamond.kind = EMPTY_BLOCK;
+                }else{
+                    diamond.kind = Math.floor(Math.random() * KINDS_OF_DIAMONDS + 1);
+                }
+
+                arrayWithDiamonds.push(diamond)
             }
 
-            return diamondsArray;
+            return arrayWithDiamonds;
         }
     },{
         level: 2,
