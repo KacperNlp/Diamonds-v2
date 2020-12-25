@@ -7,6 +7,10 @@ export class WorkiWithHtml{
         return document.getElementById(id);
     }
 
+    bindToElementsBySelector(selector){
+        return document.querySelectorAll(selector);
+    }
+
     createElement(type){
         return document.createElement(type);
     }

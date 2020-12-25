@@ -2,6 +2,7 @@ import {WorkiWithHtml, markups} from './WorkiWithHtml.esm.js';
 import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {mainMenu} from '../MainMenu.esm.js'
 import {visbilityOfLayer, HIDDEN_LAYER, VISIBLE_LAYER} from './VisibilityOfLayer.esm.js'
+import { game } from './Game.esm.js';
 
 const UNLOCKED_LEVEL_BUTTON_CLASS = 'unlocked';
 const LOCKED_LEVEL_BUTTON_CLASS = 'locked';
@@ -27,14 +28,16 @@ class LevelsLayer extends WorkiWithHtml{
         this.#addLevelButtonsToLevelsLayer();
     }
 
-    #addLevelButtonsToLevelsLayer(){
-        this.#clearLevelButtonsContainer();
-        this.#createLevelButtons();
-    }
-
+    
     #handleOfReturnButton=()=>{
         visbilityOfLayer.changeVisibilityOfLayer(this.element,HIDDEN_LAYER);
         visbilityOfLayer.changeVisibilityOfLayer(mainMenu.element, VISIBLE_LAYER);
+    }
+
+    #addLevelButtonsToLevelsLayer(){
+        this.#clearLevelButtonsContainer();
+        this.#createLevelButtons();
+        this.#addEventsOnButtons();
     }
 
     #clearLevelButtonsContainer(){
@@ -55,6 +58,13 @@ class LevelsLayer extends WorkiWithHtml{
         }
     }
 
+    #addEventsOnButtons(){
+        this.buttons = this.bindToElementsBySelector(`.${UNLOCKED_LEVEL_BUTTON_CLASS}`);
+        this.buttons.forEach(button =>{
+            button.addEventListener('click', this.#buttonEvent)
+        })
+    }
+
     //if level is unlocked than he will has a different styles and he will receive an event listener
     #typeOfLevelButton(button, isUnlocked, level){
 
@@ -66,6 +76,28 @@ class LevelsLayer extends WorkiWithHtml{
         if(isUnlocked) button.classList.add(UNLOCKED_LEVEL_BUTTON_CLASS)
         else  button.classList.add(LOCKED_LEVEL_BUTTON_CLASS)
     }
+
+    //event on button
+    #buttonEvent = (event) =>{
+
+        const level = Number(event.target.getAttribute(LEVEL_BUTTONS_NAME_OF_ATTRIBUTE_WITH_LEVEL));
+        game.newGame(level);
+
+        this.#changeVisibilityOfLayers();
+        this.#removeEventOfButtons();
+    }
+
+    #changeVisibilityOfLayers(){
+        visbilityOfLayer.changeVisibilityOfLayer(this.element, HIDDEN_LAYER);
+        visbilityOfLayer.changeVisibilityOfLayer(game.element, VISIBLE_LAYER);
+    }
+
+    #removeEventOfButtons(){
+        this.buttons.forEach(button =>{
+            button.removeEventListener('click', this.#buttonEvent)
+        })
+    }
+
 }
 
 

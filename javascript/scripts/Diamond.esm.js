@@ -7,8 +7,8 @@ export const DIAMOND_HEIGHT = 48;
 
 export class Diamond extends DiamondSprite{
     constructor(posX, posY, row, column, numberOfKind){
+        super(posX, posY, row, column, 255);
         this.alpha = 255;
-        super(posX, posY, row, column, this.alpha);
         this.numberOfKind = numberOfKind;
 
         this.drawDiamond(this.numberOfKind);
