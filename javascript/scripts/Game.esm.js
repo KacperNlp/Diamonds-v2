@@ -30,13 +30,14 @@ class Game extends WorkiWithHtml{
 
         this.diamondsMap = mapArrangement();//creates an array with diamonds
 
-        this.gameState = new GameState(level, pointsToPassLevel, 5000, playerMovement)
+        this.gameState = new GameState(pointsToPassLevel, 5000, playerMovement)
 
         this.#gamePanelAnimation();
     }
 
     #gamePanelAnimation(){
         this.#drawDiamonds();
+        this.#updateGameStats();
         window.requestAnimationFrame(()=> this.#gamePanelAnimation())
     }
 
@@ -50,6 +51,18 @@ class Game extends WorkiWithHtml{
             
             diamond.drawDiamond(media.diamondSprite)
         }
+    }
+
+    #updateGameStats(){
+        const requiredPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.requiredPoints);
+        const userPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.userPoints);
+        const hightScoreContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.hightScore)
+        const movementContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.movement);
+
+        requiredPointsContainer.textContent = this.gameState.showRequiredScore();
+        userPointsContainer.textContent = this.gameState.currentScore;
+        hightScoreContainer.textContent = this.gameState.showHightScore();
+        movementContainer.textContent = this.gameState.userMovement;
     }
 }
 
