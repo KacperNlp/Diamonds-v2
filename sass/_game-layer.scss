@@ -5,3 +5,20 @@
   justify-content: center;
   align-items: center;
 }
+
+.game {
+  &__stats-container {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & span {
+      margin: 15px 0;
+      font-size: 1.8rem;
+    }
+  }
+}
