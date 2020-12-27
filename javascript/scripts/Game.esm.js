@@ -1,6 +1,6 @@
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js';
 import {GameState} from './GameState.esm.js'
-import {gameLevels} from '../gameData/gameLevels.esm.js'
+import {gameLevels, EMPTY_BLOCK} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
 import { media } from './Media.esm.js';
 import {mouseController} from './MouseController.esm.js'
@@ -14,6 +14,8 @@ const GAME_STATS_CONTAINERS_ID = {
     hightScore: 'js-hight-score',
     movement: 'js-user-movement'
 }
+
+const LAST_DIAMONDS_ARRAY_INDEX = NUMBER_OF_ROWS * NUMBER_OF_COLUMNS - 1;
 
 
 class Game extends WorkiWithHtml{
@@ -39,6 +41,7 @@ class Game extends WorkiWithHtml{
         this.#drawDiamonds();
         this.#handleMouseState();
         this.#handleMouseClick();
+        this.#findMatches();
         this.#updateGameStats();
         window.requestAnimationFrame(()=> this.#gamePanelAnimation())
     }
@@ -65,7 +68,7 @@ class Game extends WorkiWithHtml{
         const diamondRow = Math.floor(mouseController.posX / DIAMOND_WIDTH);
         const diamondColumn = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
 
-        if(!diamondColumn || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){
+        if(!diamondColumn || diamondRow >= NUMBER_OF_COLUMNS || diamondColumn >= NUMBER_OF_ROWS){
             mouseController.state = 0;
             mouseController.clicked = false;
             return;
@@ -93,6 +96,41 @@ class Game extends WorkiWithHtml{
 
     }
 
+    #findMatches(){
+        this.gameState.getGameMap().forEach((diamond, index, diamonds) =>{
+
+            if(diamond.numberOfKind === EMPTY_BLOCK || index === LAST_DIAMONDS_ARRAY_INDEX) return;
+            //match in a row
+            if(diamond.numberOfKind === diamonds[index - 1].numberOfKind && diamond.numberOfKind === diamonds[index + 1].numberOfKind){
+                //checks to see if they are in the same row
+                if(Math.floor((index - 1) / NUMBER_OF_COLUMNS) === Math.floor((index + 1) / NUMBER_OF_COLUMNS)){
+                    for(let i = -1; i <= 1; i++){
+                        diamonds[index + 1].match++;
+                        console.log(diamonds[index + 1].match)
+                    }
+                }
+            }
+
+            //match in a column
+            const firstIndexOnTheSameColumn = index - NUMBER_OF_COLUMNS;
+            const secondIndexOnTheSameColumn = index + NUMBER_OF_COLUMNS;
+            if(
+                index <= LAST_DIAMONDS_ARRAY_INDEX - NUMBER_OF_COLUMNS
+                && index >= NUMBER_OF_COLUMNS
+                && diamonds[firstIndexOnTheSameColumn].numberOfKind === diamond.numberOfKind
+                && diamonds[secondIndexOnTheSameColumn].numberOfKind === diamond.numberOfKind
+            ){
+               //checks to see if they are in the same column
+               if((index + NUMBER_OF_COLUMNS) % NUMBER_OF_COLUMNS === (secondIndexOnTheSameColumn) % NUMBER_OF_COLUMNS){
+                   for(let i = firstIndexOnTheSameColumn; i <= secondIndexOnTheSameColumn;   i+=NUMBER_OF_COLUMNS){
+                       diamonds[i].match++;
+                       console.log(diamonds[i].match)
+                   }
+               }
+            }
+        })
+    }
+
     #updateGameStats(){
         const requiredPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.requiredPoints);
         const userPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.userPoints);
@@ -106,8 +144,8 @@ class Game extends WorkiWithHtml{
     }
 
     #swapDiamonds(){
-        const firstDiamondIndex = mouseController.firstState.posY * NUMBER_OF_ROWS + mouseController.firstState.posX;
-        const secondDiamondIndex = mouseController.secendState.posY * NUMBER_OF_ROWS + mouseController.secendState.posX;
+        const firstDiamondIndex = mouseController.firstState.posY * NUMBER_OF_COLUMNS + mouseController.firstState.posX;
+        const secondDiamondIndex = mouseController.secendState.posY * NUMBER_OF_COLUMNS + mouseController.secendState.posX;
         
         const firstDiamond = this.gameState.getGameMap()[firstDiamondIndex];
         const secondDiamond = this.gameState.getGameMap()[secondDiamondIndex];
@@ -139,6 +177,8 @@ class Game extends WorkiWithHtml{
             first.alpha,
             first.match,
         ]
+
+        console.log(first, second)
 
         this.gameState.setIsMoving(true);
     }
