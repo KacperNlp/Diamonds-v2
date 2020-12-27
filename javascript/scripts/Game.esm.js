@@ -16,6 +16,7 @@ const GAME_STATS_CONTAINERS_ID = {
 }
 
 const LAST_DIAMONDS_ARRAY_INDEX = NUMBER_OF_ROWS * NUMBER_OF_COLUMNS - 1;
+const SWAPING_SPEED = 8;
 
 
 class Game extends WorkiWithHtml{
@@ -42,6 +43,7 @@ class Game extends WorkiWithHtml{
         this.#handleMouseState();
         this.#handleMouseClick();
         this.#findMatches();
+        this.#moveDiamonds();
         this.#updateGameStats();
         window.requestAnimationFrame(()=> this.#gamePanelAnimation())
     }
@@ -61,7 +63,8 @@ class Game extends WorkiWithHtml{
             return;
         }
     }
-    
+
+    //handle the click event on diamond
     #handleMouseClick(){
         if(!mouseController.clicked) return;
 
@@ -95,7 +98,7 @@ class Game extends WorkiWithHtml{
         }
 
     }
-
+    //matches diamonds with the same kind
     #findMatches(){
         this.gameState.getGameMap().forEach((diamond, index, diamonds) =>{
 
@@ -106,7 +109,6 @@ class Game extends WorkiWithHtml{
                 if(Math.floor((index - 1) / NUMBER_OF_COLUMNS) === Math.floor((index + 1) / NUMBER_OF_COLUMNS)){
                     for(let i = -1; i <= 1; i++){
                         diamonds[index + 1].match++;
-                        console.log(diamonds[index + 1].match)
                     }
                 }
             }
@@ -124,9 +126,34 @@ class Game extends WorkiWithHtml{
                if((index + NUMBER_OF_COLUMNS) % NUMBER_OF_COLUMNS === (secondIndexOnTheSameColumn) % NUMBER_OF_COLUMNS){
                    for(let i = firstIndexOnTheSameColumn; i <= secondIndexOnTheSameColumn;   i+=NUMBER_OF_COLUMNS){
                        diamonds[i].match++;
-                       console.log(diamonds[i].match)
                    }
                }
+            }
+        })
+    }
+
+    #moveDiamonds(){
+        this.gameState.setIsMoving(false);
+        this.gameState.getGameMap().forEach(diamond =>{
+            let differenceInRow;
+            let differenceInColumn;
+
+            for(let swapSpeed = 0; swapSpeed < SWAPING_SPEED; swapSpeed++){
+                differenceInRow = diamond.posX - diamond.row * DIAMOND_WIDTH;
+                differenceInColumn = diamond.posY - diamond.column * DIAMOND_HEIGHT;
+
+                if(differenceInRow){
+                    diamond.posX -= differenceInRow/Math.abs(differenceInRow);
+                }
+
+                if(differenceInColumn){
+                    diamond.posY -= differenceInColumn/Math.abs(differenceInColumn);
+                }
+
+
+                if(differenceInColumn || differenceInRow){
+                    this.gameState.setIsMoving(true);
+                }
             }
         })
     }
@@ -143,6 +170,7 @@ class Game extends WorkiWithHtml{
         movementContainer.textContent = this.gameState.userMovement;
     }
 
+    //get clicked diamonds and swap them
     #swapDiamonds(){
         const firstDiamondIndex = mouseController.firstState.posY * NUMBER_OF_COLUMNS + mouseController.firstState.posX;
         const secondDiamondIndex = mouseController.secendState.posY * NUMBER_OF_COLUMNS + mouseController.secendState.posX;

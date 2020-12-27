@@ -11,6 +11,8 @@ export class Diamond extends DiamondSprite{
         this.alpha = 255;
         this.posX = posX,
         this.posY = posY;
+        this.row = row;
+        this.column = column;
         this.numberOfKind = numberOfKind;
         this.match = 0;
     }
