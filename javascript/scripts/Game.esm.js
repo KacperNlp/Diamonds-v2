@@ -3,6 +3,7 @@ import {GameState} from './GameState.esm.js'
 import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
 import { media } from './Media.esm.js';
+import {mouseController} from './MouseController.esm.js'
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
