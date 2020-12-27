@@ -20,7 +20,6 @@ class MouseController{
         this.posX = event.clientX - offset.left;
         this.posY = event.clientY - offset.top;
 
-        console.log(this.posX, this.posY)
         this.clicked = true;
     }
 }

@@ -1,9 +1,9 @@
 import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from '../scripts/Diamond.esm.js'
 
-const NUMBER_OF_ROWS = 10;
-const NUMBER_OF_COLUMNS = 12;
 const KINDS_OF_DIAMONDS = 6;
 export const EMPTY_BLOCK = 99;
+export const NUMBER_OF_ROWS = 10;
+export const NUMBER_OF_COLUMNS = 12;
 
 export const gameLevels = [
     {

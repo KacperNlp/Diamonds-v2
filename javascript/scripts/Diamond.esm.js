@@ -9,6 +9,9 @@ export class Diamond extends DiamondSprite{
     constructor(posX, posY, row, column, numberOfKind){
         super(posX, posY, row, column, 255);
         this.alpha = 255;
+        this.posX = posX,
+        this.posY = posY;
         this.numberOfKind = numberOfKind;
+        this.match = 0;
     }
 }

@@ -4,6 +4,8 @@ import {gameLevels} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
 import { media } from './Media.esm.js';
 import {mouseController} from './MouseController.esm.js'
+import { DIAMOND_HEIGHT, DIAMOND_WIDTH } from './Diamond.esm.js';
+import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from '../gameData/gameLevels.esm.js'
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -35,6 +37,8 @@ class Game extends WorkiWithHtml{
 
     #gamePanelAnimation(){
         this.#drawDiamonds();
+        this.#handleMouseState();
+        this.#handleMouseClick();
         this.#updateGameStats();
         window.requestAnimationFrame(()=> this.#gamePanelAnimation())
     }
@@ -43,6 +47,50 @@ class Game extends WorkiWithHtml{
         this.gameState.getGameMap().forEach(diamond => {
             diamond.drawDiamond(this.gameState.getDiamondsSprite());
         })
+    }
+
+    #handleMouseState(){
+        const isSwaping = !this.gameState.getIsSwaping();
+        const isMoving = !this.gameState.getIsMoving();
+
+        if(mouseController.clicked && isSwaping && isMoving){
+            mouseController.state++;
+            return;
+        }
+    }
+    
+    #handleMouseClick(){
+        if(!mouseController.clicked) return;
+
+        const diamondRow = Math.floor(mouseController.posX / DIAMOND_WIDTH);
+        const diamondColumn = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
+
+        if(!diamondColumn || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){
+            mouseController.state = 0;
+            mouseController.clicked = false;
+            return;
+        }
+
+        if(mouseController.state === 1){
+            mouseController.firstState = {
+                posX: diamondRow,
+                posY: diamondColumn,
+            }
+        }else if(mouseController.state === 2){
+            mouseController.secendState = {
+                posX: diamondRow,
+                posY: diamondColumn,
+            }
+
+            mouseController.state = 0;
+
+            if(Math.abs(mouseController.firstState.posX - mouseController.secendState.posX) + Math.abs(mouseController.firstState.posY - mouseController.secendState.posY) !== 1){
+                return;
+            }
+
+            this.#swapDiamonds();
+        }
+
     }
 
     #updateGameStats(){
@@ -55,6 +103,44 @@ class Game extends WorkiWithHtml{
         userPointsContainer.textContent = this.gameState.currentScore;
         hightScoreContainer.textContent = this.gameState.showHightScore();
         movementContainer.textContent = this.gameState.userMovement;
+    }
+
+    #swapDiamonds(){
+        const firstDiamondIndex = mouseController.firstState.posY * NUMBER_OF_ROWS + mouseController.firstState.posX;
+        const secondDiamondIndex = mouseController.secendState.posY * NUMBER_OF_ROWS + mouseController.secendState.posX;
+        
+        const firstDiamond = this.gameState.getGameMap()[firstDiamondIndex];
+        const secondDiamond = this.gameState.getGameMap()[secondDiamondIndex];
+
+        this.#swap(firstDiamond, secondDiamond);
+    }
+
+    #swap(first, second){
+        [
+            first.posX,
+            first.posY,
+            first.numberOfKind,
+            first.alpha,
+            first.match,
+            second.posX,
+            second.posY,
+            second.numberOfKind,
+            second.alpha,
+            second.match,
+        ] = [
+            second.posX,
+            second.posY,
+            second.numberOfKind,
+            second.alpha,
+            second.match,
+            first.posX,
+            first.posY,
+            first.numberOfKind,
+            first.alpha,
+            first.match,
+        ]
+
+        this.gameState.setIsMoving(true);
     }
 }
 
