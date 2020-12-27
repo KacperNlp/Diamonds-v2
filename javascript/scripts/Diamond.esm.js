@@ -6,14 +6,14 @@ export const DIAMOND_WIDTH = 48;
 export const DIAMOND_HEIGHT = 46;
 
 export class Diamond extends DiamondSprite{
-    constructor(posX, posY, row, column, numberOfKind){
+    constructor(posX, posY, row, column, kind){
         super(posX, posY, row, column, 255);
         this.alpha = 255;
         this.posX = posX,
         this.posY = posY;
         this.row = row;
         this.column = column;
-        this.numberOfKind = numberOfKind;
+        this.kind = kind;
         this.match = 0;
     }
 }
