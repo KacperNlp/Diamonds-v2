@@ -61,6 +61,8 @@ class Game extends WorkiWithHtml{
         const isSwaping = !this.gameState.getIsSwaping();
         const isMoving = !this.gameState.getIsMoving();
 
+        console.log(isSwaping)
+
         if(mouseController.clicked && isSwaping && isMoving){
             mouseController.state++;
             return;
@@ -73,8 +75,6 @@ class Game extends WorkiWithHtml{
 
         const diamondRow = Math.floor(mouseController.posX / DIAMOND_WIDTH);
         const diamondColumn = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
-
-        console.log(diamondRow, diamondColumn)
 
         if(!diamondColumn || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){
             mouseController.state = 0;
@@ -93,8 +93,6 @@ class Game extends WorkiWithHtml{
                 posY: diamondColumn,
             }
 
-            console.log(mouseController.secendState)
-
             mouseController.state = 0;
 
             if(Math.abs(mouseController.firstState.posX - mouseController.secendState.posX) + Math.abs(mouseController.firstState.posY - mouseController.secendState.posY) !== 1){
@@ -102,7 +100,6 @@ class Game extends WorkiWithHtml{
                 return;
             }
 
-            console.log(mouseController.firstState, mouseController.secendState)
 
             this.#swapDiamonds();
 
@@ -149,6 +146,7 @@ class Game extends WorkiWithHtml{
     //diamonds move animation
     #moveDiamonds(){
         this.gameState.setIsMoving(false);
+        this.gameState.setIsSwaping(false);
 
         this.gameState.getGameMap().forEach(diamond =>{
             let differenceInRow;
@@ -199,6 +197,7 @@ class Game extends WorkiWithHtml{
 
     //get clicked diamonds and swap them
     #swapDiamonds(){
+        console.log('działa')
         const firstDiamondIndex = mouseController.firstState.posY * NUMBER_OF_COLUMNS + mouseController.firstState.posX;
         const secondDiamondIndex = mouseController.secendState.posY * NUMBER_OF_COLUMNS + mouseController.secendState.posX;
         
