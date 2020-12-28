@@ -2,7 +2,6 @@ import {canvas} from './Canvas.esm.js';
 import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from './Diamond.esm.js'
 import {EMPTY_BLOCK} from '../gameData/gameLevels.esm.js'
 
-const DAIMOND_RATION_TO_MAP_SIZE = 1.11;
 
 export class DiamondSprite{
     constructor(posX, posY, row, column, kind, alpha){
@@ -28,10 +27,10 @@ export class DiamondSprite{
             0,
             DIAMOND_WIDTH,
             DIAMOND_HEIGHT,
-            this.posX * DAIMOND_RATION_TO_MAP_SIZE, 
-            this.posY * DAIMOND_RATION_TO_MAP_SIZE,
-            DIAMOND_WIDTH * DAIMOND_RATION_TO_MAP_SIZE,
-            DIAMOND_HEIGHT * DAIMOND_RATION_TO_MAP_SIZE,
+            this.posX, 
+            this.posY,
+            DIAMOND_WIDTH,
+            DIAMOND_HEIGHT,
         )
 
         if(this.alpha !== 255){
