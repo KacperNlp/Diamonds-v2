@@ -15,6 +15,15 @@ class Canvas extends WorkiWithHtml{
         this.ctx.canvas.width = CANVAS_WIDTH;
         this.ctx.canvas.height = CANVAS_HEIGHT;
     }
+
+    drawCanvasBackground(){
+        this.ctx.beginPath();
+
+        this.ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        this.ctx.fillStyle = '#000000';
+
+        this.ctx.closePath();
+    }
 }
 
 

@@ -46,6 +46,7 @@ class Game extends WorkiWithHtml{
         this.#moveDiamonds();
         this.#hideDiamonds();
         this.#updateGameStats();
+        canvas.drawCanvasBackground();
         this.#drawDiamonds();
         window.requestAnimationFrame(()=> this.#gamePanelAnimation())
     }
@@ -146,8 +147,8 @@ class Game extends WorkiWithHtml{
             let differenceInColumn;
 
             for(let swapSpeed = 0; swapSpeed < SWAPING_SPEED; swapSpeed++){
-                differenceInRow = diamond.posX - diamond.row * DIAMOND_WIDTH;
-                differenceInColumn = diamond.posY - diamond.column * DIAMOND_HEIGHT;
+                differenceInRow = diamond.posX - diamond.column * DIAMOND_WIDTH;
+                differenceInColumn = diamond.posY - diamond.row * DIAMOND_HEIGHT;
 
                if(differenceInRow){
                     diamond.posX -= differenceInRow/Math.abs(differenceInRow);

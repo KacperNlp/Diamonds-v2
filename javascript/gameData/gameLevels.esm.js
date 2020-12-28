@@ -2,8 +2,8 @@ import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from '../scripts/Diamond.esm.js'
 
 const KINDS_OF_DIAMONDS = 6;
 export const EMPTY_BLOCK = 99;
-export const NUMBER_OF_ROWS = 10;
-export const NUMBER_OF_COLUMNS = 12;
+export const NUMBER_OF_ROWS = 9;
+export const NUMBER_OF_COLUMNS = 8;
 
 export const gameLevels = [
     {
@@ -22,13 +22,13 @@ export const gameLevels = [
 
                 if(!cell ||cell % NUMBER_OF_COLUMNS){
                     diamond.posX = (cell % NUMBER_OF_COLUMNS) * DIAMOND_WIDTH;
-                    diamond.posY = numberOfRow * DIAMOND_HEIGHT - DIAMOND_HEIGHT;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
                     diamond.row = numberOfRow;
                     diamond.column = cell % NUMBER_OF_COLUMNS;
                 }else{
                     numberOfRow++;
                     diamond.posX = 0;
-                    diamond.posY = numberOfRow * DIAMOND_HEIGHT - DIAMOND_HEIGHT;
+                    diamond.posY = numberOfRow * DIAMOND_HEIGHT;
                     diamond.row = numberOfRow;
                     diamond.column = cell % NUMBER_OF_COLUMNS;
                 }
