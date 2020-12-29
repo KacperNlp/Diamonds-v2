@@ -11,14 +11,16 @@ export class GameState{
         let _isSwaping = false;
         let _gameMap = diamonds.map(({posX, posY, row, column, kind}) => new Diamond(posX, posY, row, column, kind));
         let _diamondsSprite = diamondsSprite;
+        let _requiredScore = requiredScore
 
         this.decreaseMovement = () => this._userMovement--;
         this.increaseMovement = () => this._userMovement++;
+        this.getMovement = () => this._userMovement;
 
         this.increaseCurrentScore = beatenDiamonds => this._currentScore += beatenDiamonds * 2;
 
         this.showHightScore = () => hightScore;
-        this.showRequiredScore = () => requiredScore;
+        this.showRequiredScore = () => _requiredScore;
 
         this.getIsMoving = () => _isMoving;
         this.setIsMoving = value => _isMoving = value;
@@ -28,6 +30,8 @@ export class GameState{
 
         this.getGameMap = () => _gameMap;
         this.getDiamondsSprite = () => _diamondsSprite;
+
+        this.isPlayerWinner = () => this._currentScore >= _requiredScore;
     }
 
     get userMovement(){

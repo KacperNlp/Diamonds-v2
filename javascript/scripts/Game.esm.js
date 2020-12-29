@@ -36,6 +36,8 @@ class Game extends WorkiWithHtml{
 
         this.gameState = new GameState(pointsToPassLevel, 5000, playerMovement, mapArrangement(), media.diamondSprite)
 
+        media.isInLevel = true;
+
         this.#gamePanelAnimation();
     }
 
@@ -51,7 +53,7 @@ class Game extends WorkiWithHtml{
         this.#updateGameStats();
         canvas.drawCanvasBackground();
         this.#drawDiamonds();
-        window.requestAnimationFrame(()=> this.#gamePanelAnimation())
+        this.#checksEndGame()
     }
 
     #drawDiamonds(){
@@ -203,6 +205,7 @@ class Game extends WorkiWithHtml{
 
             if(!this.score){
                 this.#swapDiamonds();
+                this.gameState.increaseMovement();
             }
 
             this.gameState.setIsSwaping(false);
@@ -259,6 +262,25 @@ class Game extends WorkiWithHtml{
         userPointsContainer.textContent = this.gameState.currentScore;
         hightScoreContainer.textContent = this.gameState.showHightScore();
         movementContainer.textContent = this.gameState.userMovement;
+    }
+
+    //checks it's end of game
+    #checksEndGame(){
+
+        if(!this.gameState.getMovement() && !this.gameState.getIsMoving() && !this.gameState.getIsSwaping()){
+
+            media.isInLevel = false;
+
+            const playerIsWon =  this.gameState.isPlayerWinner();
+
+            if(playerIsWon){
+                console.log('wygrałeś!')
+            }else{
+                console.log('przegrałeś')
+            }
+        }else{
+            this.animationFrame = window.requestAnimationFrame(()=> this.#gamePanelAnimation())
+        }
     }
 
     //get clicked diamonds and swap them

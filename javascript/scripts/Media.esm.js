@@ -1,5 +1,9 @@
 class Media{
 
+    constructor(){
+        this.isInLevel = false;
+    }
+
     #diamondSprite = null;
 
     get diamondSprite(){

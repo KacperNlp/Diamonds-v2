@@ -36,6 +36,21 @@
                 <canvas id="js-game-map"></canvas>
             </div>
         </div>
+
+        <!--Game result-->
+        <div class="result hidden" id="js-result-box">
+            <div class="result__svg">
+                <svg class="header__button">
+                    <use href="./assets/sprite.svg#ribbon" id="js-svg"></use>
+                </svg>
+            </div>
+            <div class="result__context">
+                <h2 class="result__txt" id="js-result-text"></h2>
+                <p class="result__score" id="js-result-score"></p>
+            </div>
+
+            <button class="result__close-btn" id="js-result-close-btn">close</button>
+        </div>
     </main>
 
     <script src="/javascript/MainMenu.esm.js" type="module"></script>
