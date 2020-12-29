@@ -45,6 +45,7 @@ class Game extends WorkiWithHtml{
         this.#findMatches();
         this.#moveDiamonds();
         this.#hideDiamonds();
+        this.#countScore()
         this.#updateGameStats();
         canvas.drawCanvasBackground();
         this.#drawDiamonds();
@@ -57,6 +58,7 @@ class Game extends WorkiWithHtml{
         })
     }
 
+    //increase number of state
     #handleMouseState(){
         const isSwaping = !this.gameState.getIsSwaping();
         const isMoving = !this.gameState.getIsMoving();
@@ -152,6 +154,7 @@ class Game extends WorkiWithHtml{
             let differenceInRow;
             let differenceInColumn;
 
+            //how many fps it will take to move the diamond (in this situation it will be 6 of 60fps, 8px per 1/60, since diamond width is equal to 48px)
             for(let swapSpeed = 0; swapSpeed < SWAPING_SPEED; swapSpeed++){
                 differenceInRow = diamond.posX - diamond.column * DIAMOND_WIDTH;
                 differenceInColumn = diamond.posY - diamond.row * DIAMOND_HEIGHT;
@@ -182,7 +185,19 @@ class Game extends WorkiWithHtml{
         })
     }
 
+    //increase user score
+    #countScore(){
+        this.score = 0;
 
+        this.gameState.getGameMap().forEach(diamond => this.score += diamond.match);
+
+        if(this.score & !this.gameState.getIsMoving()){
+            this.gameState.increaseCurrentScore(this.score);
+        }
+    }
+
+
+    //game board with user movement, hight score on current map, user score and required score to unlocke next level
     #updateGameStats(){
         const requiredPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.requiredPoints);
         const userPointsContainer = this.bindToElement(GAME_STATS_CONTAINERS_ID.userPoints);
