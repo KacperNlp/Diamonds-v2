@@ -78,7 +78,8 @@ class Game extends WorkiWithHtml{
         const diamondRow = Math.floor(mouseController.posX / DIAMOND_WIDTH);
         const diamondColumn = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
 
-        if(!diamondColumn || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){
+
+        if(!diamondColumn || diamondColumn >= NUMBER_OF_ROWS || diamondRow >= NUMBER_OF_COLUMNS){
             mouseController.state = 0;
             mouseController.clicked = false;
             return;
@@ -208,6 +209,7 @@ class Game extends WorkiWithHtml{
         }
     }
 
+    //this function clear matched and generates new diamonds to change disappeared
     #clearMatched(){
 
         if(this.gameState.getIsMoving()) return;
