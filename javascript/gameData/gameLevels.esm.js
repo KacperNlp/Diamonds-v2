@@ -1,6 +1,6 @@
 import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from '../scripts/Diamond.esm.js'
 
-const KINDS_OF_DIAMONDS = 6;
+export const KINDS_OF_DIAMONDS = 6;
 export const EMPTY_BLOCK = 99;
 export const NUMBER_OF_ROWS = 9;
 export const NUMBER_OF_COLUMNS = 8;

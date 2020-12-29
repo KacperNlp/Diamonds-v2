@@ -15,7 +15,7 @@ export class GameState{
         this.decreaseMovement = () => this._userMovement--;
         this.increaseMovement = () => this._userMovement++;
 
-        this.increaseCurrentScore = beatenDiamonds => this._currentScore += beatenDiamonds*30;
+        this.increaseCurrentScore = beatenDiamonds => this._currentScore += beatenDiamonds * 2;
 
         this.showHightScore = () => hightScore;
         this.showRequiredScore = () => requiredScore;
