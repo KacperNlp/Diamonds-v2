@@ -75,11 +75,11 @@ class Game extends WorkiWithHtml{
     #handleMouseClick(){
         if(!mouseController.clicked) return;
 
-        const diamondRow = Math.floor(mouseController.posX / DIAMOND_WIDTH);
-        const diamondColumn = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
+        const diamondColumn = Math.floor(mouseController.posX / DIAMOND_WIDTH);
+        const diamondRow = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
 
 
-        if(!diamondColumn || diamondColumn >= NUMBER_OF_ROWS || diamondRow >= NUMBER_OF_COLUMNS){
+        if(!diamondRow || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){
             mouseController.state = 0;
             mouseController.clicked = false;
             return;
@@ -87,13 +87,13 @@ class Game extends WorkiWithHtml{
 
         if(mouseController.state === 1){
             mouseController.firstState = {
-                posX: diamondRow,
-                posY: diamondColumn,
+                posX: diamondColumn,
+                posY: diamondRow,
             }
         }else if(mouseController.state === 2){
             mouseController.secendState = {
-                posX: diamondRow,
-                posY: diamondColumn,
+                posX: diamondColumn,
+                posY: diamondRow,
             }
 
             mouseController.state = 0;
