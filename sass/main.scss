@@ -13,12 +13,14 @@ html {
   background: $backGround;
   font-size: $fontSize;
   color: $fontColor;
+  font-family: arial, sans-serif;
 }
 
 @import "game-layer";
 @import "menu";
 @import "buttons";
 @import "levels-layer";
+@import "result";
 
 .hidden {
   display: none;

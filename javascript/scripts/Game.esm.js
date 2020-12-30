@@ -6,6 +6,8 @@ import { media } from './Media.esm.js';
 import {mouseController} from './MouseController.esm.js'
 import { DIAMOND_HEIGHT, DIAMOND_WIDTH } from './Diamond.esm.js';
 import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from '../gameData/gameLevels.esm.js'
+import {gameResult} from './GameResult.esm.js'
+import { visbilityOfLayer, VISIBLE_LAYER } from './VisibilityOfLayer.esm.js';
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -272,11 +274,22 @@ class Game extends WorkiWithHtml{
             media.isInLevel = false;
 
             const playerIsWon =  this.gameState.isPlayerWinner();
+            const userScore = this.gameState.currentScore;
+
+            //show message layer 
+            visbilityOfLayer.changeVisibilityOfLayer(gameResult.element, VISIBLE_LAYER)
 
             if(playerIsWon){
-                console.log('wygrałeś!')
+
+                const {ribbon} = gameResult.typesOfSvg
+
+                gameResult.showMessage(ribbon, playerIsWon, userScore)
+
             }else{
-                console.log('przegrałeś')
+
+                const {poop} = gameResult.typesOfSvg
+
+                gameResult.showMessage(poop, playerIsWon, userScore)
             }
         }else{
             this.animationFrame = window.requestAnimationFrame(()=> this.#gamePanelAnimation())

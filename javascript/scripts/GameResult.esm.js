@@ -1,10 +1,10 @@
-import { WorkiWithHtml } from "./WorkiWithHtml.esm";
+import { WorkiWithHtml } from "./WorkiWithHtml.esm.js";
 import {visbilityOfLayer, HIDDEN_LAYER, VISIBLE_LAYER} from './VisibilityOfLayer.esm.js'
 import {levelsLayer} from './LevelsLayer.esm.js'
 import {game} from './Game.esm.js'
 
 
-const GAME_RESULT_CONTAINER_ID = 'js-result-box';
+const GAME_RESULT_CONTAINER_ID = 'js-result-layer';
 const SVG_HREF = './assets/sprite.svg#';
 const SVG_ID = 'js-svg';
 const CLOSE_BUTTON_ID = 'js-result-close-btn';
@@ -18,18 +18,40 @@ class GameResult extends WorkiWithHtml{
         this.typesOfSvg = {
             crown: 'crown',
             ribbon: 'ribbon',
+            poop: 'poop',
         }
 
         this.typeOfTxtMessages = {
             won: 'You won!',
             lost: 'You lost!',
         }
+
+        this.classList = {
+            lost: 'lost',
+            newRecord: 'new-record',
+        }
     }
 
     showMessage(type, result, score,){
+        this.#setStylesByResult(type);
         this.#handleCloseButton();
         this.#messageSVG(type);
         this.#showContext(result, score)
+    }
+
+    #setStylesByResult(type = false){
+        const {lost, newRecord} = this.classList;
+
+        this.element.classList.remove(lost)
+        this.element.classList.remove(newRecord)
+
+        const {crown, poop} = this.typesOfSvg;
+
+        if(type === crown){
+            this.element.classList.add(newRecord)
+        }else if(type === poop){
+            this.element.classList.add(lost)
+        }
     }
 
     #handleCloseButton(){
@@ -41,6 +63,7 @@ class GameResult extends WorkiWithHtml{
             visbilityOfLayer.changeVisibilityOfLayer(game.element, HIDDEN_LAYER);
             visbilityOfLayer.changeVisibilityOfLayer(levelsLayer.element, VISIBLE_LAYER);
 
+            levelsLayer.initLevelsLayer();
         })
     }
 
@@ -61,3 +84,5 @@ class GameResult extends WorkiWithHtml{
     }
 
 }
+
+export const gameResult = new GameResult();

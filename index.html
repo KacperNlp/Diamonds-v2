@@ -38,18 +38,20 @@
         </div>
 
         <!--Game result-->
-        <div class="result hidden" id="js-result-box">
-            <div class="result__svg">
-                <svg class="header__button">
-                    <use href="./assets/sprite.svg#ribbon" id="js-svg"></use>
-                </svg>
-            </div>
-            <div class="result__context">
-                <h2 class="result__txt" id="js-result-text"></h2>
-                <p class="result__score" id="js-result-score"></p>
-            </div>
+        <div class="game-layer result hidden" id="js-result-layer">
+            <div class="result__box" id="js-result-box">
+                <div class="result__svg">
+                    <svg class="result__svg">
+                        <use href="./assets/sprite.svg#ribbon" id="js-svg"></use>
+                    </svg>
+                </div>
+                <div class="result__context">
+                    <h2 class="result__txt" id="js-result-text">You Won!</h2>
+                    <p class="result__score">Your score:<span id="js-result-score">12569</span></p>
+                </div>
 
-            <button class="result__close-btn" id="js-result-close-btn">close</button>
+                <button class="result__close-btn" id="js-result-close-btn"><span>close</span></button>
+            </div>
         </div>
     </main>
 
