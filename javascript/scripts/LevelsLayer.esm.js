@@ -6,6 +6,7 @@ import { game } from './Game.esm.js';
 import { media } from './Media.esm.js';
 import { loader } from './Loader.esm.js';
 import {DIAMONDS_SPRITE} from './Diamond.esm.js'
+import {userData} from './UserData.esm.js'
 
 const UNLOCKED_LEVEL_BUTTON_CLASS = 'unlocked';
 const LOCKED_LEVEL_BUTTON_CLASS = 'locked';
@@ -52,10 +53,13 @@ class LevelsLayer extends WorkiWithHtml{
     #createLevelButtons(){
         for(let counter = 0; counter < gameLevels.length; counter++){
 
-            const button = this.createElement(markups.button);
-            const {level, unlocked} = gameLevels[counter]
+            const {level} = gameLevels[counter]
 
-            this.#typeOfLevelButton(button, unlocked, level);
+            const isUnlocked = userData.checkAvailabilityLevel(level)
+
+            const button = this.createElement(markups.button);
+
+            this.#typeOfLevelButton(button, isUnlocked, level);
 
             this.buttonsContainer.appendChild(button)
         }

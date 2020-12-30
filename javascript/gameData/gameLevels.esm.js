@@ -8,7 +8,6 @@ export const NUMBER_OF_COLUMNS = 8;
 export const gameLevels = [
     {
         level: 1,
-        unlocked: true,
         pointsToPassLevel: 5000,
         playerMovement: 30,
         mapArrangement: () => {
