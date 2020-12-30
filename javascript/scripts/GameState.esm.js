@@ -1,7 +1,7 @@
 import { Diamond } from "./Diamond.esm.js";
 
 export class GameState{
-    constructor(requiredScore,  hightScore, userMovement, diamonds, diamondsSprite){
+    constructor(requiredScore,  hightScore, userMovement, diamonds, diamondsSprite, level, numberOfKinds){
 
         this._userMovement = userMovement;
         this._currentScore = 0;
@@ -11,7 +11,9 @@ export class GameState{
         let _isSwaping = false;
         let _gameMap = diamonds.map(({posX, posY, row, column, kind}) => new Diamond(posX, posY, row, column, kind));
         let _diamondsSprite = diamondsSprite;
-        let _requiredScore = requiredScore
+        let _requiredScore = requiredScore;
+        let _level = level;
+        let _numberOfKinds = numberOfKinds;
 
         this.decreaseMovement = () => this._userMovement--;
         this.increaseMovement = () => this._userMovement++;
@@ -32,6 +34,9 @@ export class GameState{
         this.getDiamondsSprite = () => _diamondsSprite;
 
         this.isPlayerWinner = () => this._currentScore >= _requiredScore;
+
+        this.getLevel = () => _level;
+        this.getKindsOfDiamonds = () => _numberOfKinds;
     }
 
     get userMovement(){

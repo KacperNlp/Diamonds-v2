@@ -1,6 +1,6 @@
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js';
 import {GameState} from './GameState.esm.js'
-import {gameLevels, EMPTY_BLOCK, KINDS_OF_DIAMONDS} from '../gameData/gameLevels.esm.js'
+import {gameLevels, EMPTY_BLOCK} from '../gameData/gameLevels.esm.js'
 import {canvas} from './Canvas.esm.js'
 import { media } from './Media.esm.js';
 import {mouseController} from './MouseController.esm.js'
@@ -8,6 +8,7 @@ import { DIAMOND_HEIGHT, DIAMOND_WIDTH } from './Diamond.esm.js';
 import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from '../gameData/gameLevels.esm.js'
 import {gameResult} from './GameResult.esm.js'
 import { visbilityOfLayer, VISIBLE_LAYER } from './VisibilityOfLayer.esm.js';
+import { userData } from './UserData.esm.js';
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -32,11 +33,10 @@ class Game extends WorkiWithHtml{
 
         const lvlIndex = level - 1;
 
-        const {unlocked, pointsToPassLevel, playerMovement, mapArrangement} = gameLevels[lvlIndex];
+        const {pointsToPassLevel, playerMovement, mapArrangement, numberOfKinds} = gameLevels[lvlIndex];
+        const hightScore = userData.getHighestScore(level)
 
-        if(!unlocked) return;
-
-        this.gameState = new GameState(pointsToPassLevel, 5000, playerMovement, mapArrangement(), media.diamondSprite)
+        this.gameState = new GameState(pointsToPassLevel, hightScore, playerMovement, mapArrangement(numberOfKinds), media.diamondSprite, level, numberOfKinds)
 
         media.isInLevel = true;
 
@@ -247,7 +247,7 @@ class Game extends WorkiWithHtml{
                 diamond.posX = row;
                 diamond.match = 0;
                 diamond.alpha = 255;
-                diamond.kind = Math.floor(Math.random() * KINDS_OF_DIAMONDS);
+                diamond.kind = Math.floor(Math.random() * this.gameState.getKindsOfDiamonds());
             }
         })
     }
@@ -275,21 +275,41 @@ class Game extends WorkiWithHtml{
 
             const playerIsWon =  this.gameState.isPlayerWinner();
             const userScore = this.gameState.currentScore;
+            const hightScore = this.gameState.showHightScore();
+            const level = this.gameState.getLevel();
 
             //show message layer 
-            visbilityOfLayer.changeVisibilityOfLayer(gameResult.element, VISIBLE_LAYER)
+            visbilityOfLayer.changeVisibilityOfLayer(gameResult.element, VISIBLE_LAYER);
+
+            const {ribbon, poop, crown} = gameResult.typesOfSvg;
 
             if(playerIsWon){
 
-                const {ribbon} = gameResult.typesOfSvg
+                userData.unlockNewLevel(level)
 
-                gameResult.showMessage(ribbon, playerIsWon, userScore)
+                if(hightScore < userScore){
+
+                    gameResult.showMessage(crown, playerIsWon, userScore);
+                    userData.setNewHightScore(level, userScore);
+
+                }else{
+
+                    gameResult.showMessage(ribbon, playerIsWon, userScore);
+
+                }
 
             }else{
 
-                const {poop} = gameResult.typesOfSvg
+                if(hightScore < userScore){
 
-                gameResult.showMessage(poop, playerIsWon, userScore)
+                    gameResult.showMessage(crown, playerIsWon, userScore);
+                    userData.setNewHightScore(level, userScore);
+
+                }else{
+
+                    gameResult.showMessage(poop, playerIsWon, userScore);
+
+                }
             }
         }else{
             this.animationFrame = window.requestAnimationFrame(()=> this.#gamePanelAnimation())
