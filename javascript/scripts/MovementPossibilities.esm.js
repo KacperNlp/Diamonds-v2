@@ -23,8 +23,18 @@ class MovementPossibilities{
                 index % NUMBER_OF_COLUMNS < NUMBER_OF_COLUMNS - 1
                 && Math.floor(index / NUMBER_OF_COLUMNS) > 1
                 && Math.floor(index /NUMBER_OF_COLUMNS) < NUMBER_OF_ROWS - 1
-                && diamond.kind === diamonds[index + NUMBER_OF_COLUMNS].kind
-                && diamond.kind === diamonds[index - NUMBER_OF_COLUMNS].kind
+                && diamond.kind === diamonds[index + NUMBER_OF_COLUMNS + 1].kind
+                && diamond.kind === diamonds[index - NUMBER_OF_COLUMNS + 1].kind
+            ){
+                return true;
+            }
+
+            //move right (dimaond is in top of the column)
+            if(
+                index % NUMBER_OF_COLUMNS < NUMBER_OF_COLUMNS - 1
+                && Math.floor(index / NUMBER_OF_COLUMNS) < NUMBER_OF_ROWS - 2
+                && diamond.kind === diamonds[index + NUMBER_OF_COLUMNS + 1].kind
+                && diamond.kind === diamonds[index + (2 * NUMBER_OF_COLUMNS) + 1].kind
             ){
                 return true;
             }
