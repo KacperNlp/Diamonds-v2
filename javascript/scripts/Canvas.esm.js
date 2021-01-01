@@ -1,7 +1,7 @@
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js'
 
 const CANVAS_ID = 'js-game-map';
-const CANVAS_WIDTH = 700;
+const CANVAS_WIDTH = 650;
 const CANVAS_HEIGHT = 500;
 
 class Canvas extends WorkiWithHtml{
@@ -27,5 +27,5 @@ class Canvas extends WorkiWithHtml{
 }
 
 export const GAME_BOARD_OFFSET_Y = 20;
-export const GAME_BOARD_OFFSET_X = 100;
+export const GAME_BOARD_OFFSET_X = 77;
 export const canvas = new Canvas();
