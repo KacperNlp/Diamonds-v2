@@ -12,15 +12,18 @@
   }
 
   &__container {
-    width: 60%;
-    height: 100%;
+    width: 50%;
+    height: 70%;
+    padding: 30px;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(5, 1fr);
     justify-items: center;
     align-items: center;
-    background: darken($backGround, 5%);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    background: $canvasBg;
+    border: 2px solid $fontColor;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 }
 
