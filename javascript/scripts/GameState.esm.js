@@ -1,3 +1,4 @@
+import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "../gameData/gameLevels.esm.js";
 import { Diamond } from "./Diamond.esm.js";
 
 export class GameState{
@@ -53,5 +54,29 @@ export class GameState{
 
     get gameResult(){
         return this._gameResult;
+    }
+
+    mixDiamonds(){
+
+        const mixedDiamonds = _gameMap.splice(0, NUMBER_OF_COLUMNS);
+        const index = NUMBER_OF_COLUMNS;
+
+        while(_gameMap.length){
+
+            const randomDiamondId = Math.floor(Math.random() * _gameMap.length);
+            const diamond = _gameMap.splice(randomDiamondId, 1)[0];
+
+            const newDiamond = {
+                ...diamond,
+                row: Math.floor(index / NUMBER_OF_COLUMNS), 
+                column: index % NUMBER_OF_COLUMNS,
+            };
+
+            index++;
+
+            mixedDiamonds.push(newDiamond);
+        }
+
+        _gameMap.push(mixedDiamonds);
     }
 }

@@ -9,6 +9,7 @@ import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from '../gameData/gameLevels.esm.js'
 import {gameResult} from './GameResult.esm.js'
 import { visbilityOfLayer, VISIBLE_LAYER } from './VisibilityOfLayer.esm.js';
 import { userData } from './UserData.esm.js';
+import { movementPossibilities } from './MovementPossibilities.esm.js'
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -44,6 +45,7 @@ class Game extends WorkiWithHtml{
     }
 
     #gamePanelAnimation(){
+        movementPossibilities.checkPossibilityMovement();
         this.#handleMouseState();
         this.#handleMouseClick();
         this.#findMatches();
