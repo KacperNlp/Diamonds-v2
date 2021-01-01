@@ -1,7 +1,7 @@
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js';
 import {GameState} from './GameState.esm.js'
 import {gameLevels, EMPTY_BLOCK} from '../gameData/gameLevels.esm.js'
-import {canvas} from './Canvas.esm.js'
+import {canvas, GAME_BOARD_OFFSET_Y, GAME_BOARD_OFFSET_X} from './Canvas.esm.js'
 import { media } from './Media.esm.js';
 import {mouseController} from './MouseController.esm.js'
 import { DIAMOND_HEIGHT, DIAMOND_WIDTH } from './Diamond.esm.js';
@@ -81,8 +81,8 @@ class Game extends WorkiWithHtml{
     #handleMouseClick(){
         if(!mouseController.clicked) return;
 
-        const diamondColumn = Math.floor(mouseController.posX / DIAMOND_WIDTH);
-        const diamondRow = Math.floor(mouseController.posY / DIAMOND_HEIGHT);
+        const diamondColumn = Math.floor((mouseController.posX - GAME_BOARD_OFFSET_X)/ DIAMOND_WIDTH);
+        const diamondRow = Math.floor((mouseController.posY - GAME_BOARD_OFFSET_Y)/ DIAMOND_HEIGHT);
 
 
         if(!diamondRow || diamondRow >= NUMBER_OF_ROWS || diamondColumn >= NUMBER_OF_COLUMNS){

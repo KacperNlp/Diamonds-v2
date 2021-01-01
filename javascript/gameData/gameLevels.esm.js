@@ -36,7 +36,7 @@ const generateGameBoard = (kinds) =>{
 
 export const EMPTY_BLOCK = 99;
 export const NUMBER_OF_ROWS = 9;
-export const NUMBER_OF_COLUMNS = 8;
+export const NUMBER_OF_COLUMNS = 10;
 
 export const gameLevels = [
     {

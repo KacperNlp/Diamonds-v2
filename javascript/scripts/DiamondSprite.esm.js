@@ -1,4 +1,4 @@
-import {canvas} from './Canvas.esm.js';
+import {canvas, GAME_BOARD_OFFSET_X, GAME_BOARD_OFFSET_Y} from './Canvas.esm.js';
 import {DIAMOND_WIDTH, DIAMOND_HEIGHT} from './Diamond.esm.js'
 import {EMPTY_BLOCK} from '../gameData/gameLevels.esm.js'
 
@@ -27,8 +27,8 @@ export class DiamondSprite{
             0,
             DIAMOND_WIDTH,
             DIAMOND_HEIGHT,
-            this.posX, 
-            this.posY,
+            this.posX + GAME_BOARD_OFFSET_X, 
+            this.posY + GAME_BOARD_OFFSET_Y,
             DIAMOND_WIDTH,
             DIAMOND_HEIGHT,
         )
