@@ -7,18 +7,27 @@
 }
 
 .game {
-  &__stats-container {
+  &__stats-board {
     position: absolute;
-    top: 30px;
-    left: 50px;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 30px 60px;
+    background-color: $canvasBg;
+    border-bottom: 2px solid $fontColor;
+    border-right: 2px solid $fontColor;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  }
 
-    & span {
-      margin: 15px 0;
-      font-size: 1.8rem;
-    }
+  &__stat {
+    display: block;
+    width: 100%;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 1.8rem;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
   }
 }
