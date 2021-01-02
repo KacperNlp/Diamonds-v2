@@ -62,7 +62,7 @@ class Settings extends WorkiWithHtml{
     #closeSettings(){
 
         const button = this.bindToElement(CLOSE_SETTIGNS_BUTTON_ID);
-        button.addEventListener('click', (e)=>{
+        button.addEventListener('click', ()=>{
             visbilityOfLayer.changeVisibilityOfLayer(this.element, HIDDEN_LAYER)
         })
     }

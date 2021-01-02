@@ -1,0 +1,62 @@
+.settings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.3);
+  &__box {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 450px;
+    height: 500px;
+    padding: 30px;
+    background: $canvasBg;
+    border: 2px solid $fontColor;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  &__buttons-container {
+    width: 200px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__button {
+    padding: 20px 35px;
+    background: transparent;
+    border: 2px solid $fontColor;
+    color: $fontColor;
+    transition: 0.3s;
+
+    &:hover {
+      background: $fontColor;
+      color: $canvasBg;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+  }
+
+  &__close-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    padding: 15px 35px;
+    transform: translateX(-50%);
+    background: transparent;
+    border: 2px solid $fontColor;
+    color: $fontColor;
+    transition: 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      background: $fontColor;
+      color: $canvasBg;
+    }
+  }
+}
