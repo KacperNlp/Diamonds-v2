@@ -28,11 +28,13 @@
   }
 
   &__button {
-    padding: 20px 35px;
+    padding: 15px 35px;
     background: transparent;
     border: 2px solid $fontColor;
     color: $fontColor;
     transition: 0.3s;
+    outline: none;
+    font-size: 2rem;
 
     &:hover {
       background: $fontColor;
@@ -52,6 +54,7 @@
     border: 2px solid $fontColor;
     color: $fontColor;
     transition: 0.3s;
+    outline: none;
 
     &:hover {
       cursor: pointer;

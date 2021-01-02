@@ -17,10 +17,17 @@ const DECREASE_SWAP_SOUND_BUTTON_ID = 'js-decrease-swap-sound';
 const CLOSE_SETTIGNS_BUTTON_ID = 'js-close-settings-button';
 const SETTINGS_LAYER_ID = 'js-settings';
 
+const SWAP_SOUND_BUTTON_ICON_SPAN_ID = 'js-swap-soun-icon'
+
 class Settings extends WorkiWithHtml{
     constructor(){
         super(SETTINGS_LAYER_ID)
         this.#initSettinga();
+        this.listOfSwapSoundButtonIcons = [
+            {iconClass: 'fa-volume-mute',},
+            {iconClass: 'fa-volume-down',},
+            {iconClass: 'fa-volume-up',},
+        ]
     }
 
     #initSettinga(){
@@ -47,6 +54,8 @@ class Settings extends WorkiWithHtml{
         onOffButton.addEventListener('click', media.toggleMusicOnOff);
         increaseButton.addEventListener('click', media.increaseMusicVolume);
         decreaseButton.addEventListener('click', media.decreaseMusicVolume);
+
+        console.log(media.musicVolume)
     }
 
     #handleSwapSoundButtons(){
@@ -54,9 +63,20 @@ class Settings extends WorkiWithHtml{
         const increaseButton = this.bindToElement(INCREASE_SWAP_COUND_BUTTON_ID);
         const decreaseButton = this.bindToElement(DECREASE_SWAP_SOUND_BUTTON_ID);
 
-        onOffButton.addEventListener('click', media.toggleSwapSound);
-        increaseButton.addEventListener('click', media.increaseSwapSound);
-        decreaseButton.addEventListener('click', media.decreaseSwapSound);
+        onOffButton.addEventListener('click', ()=>{
+            media.toggleSwapSound();
+            this.#iconForOnOffButton();
+        });
+
+        increaseButton.addEventListener('click', ()=>{
+            media.increaseSwapSound();
+            this.#iconForOnOffButton();
+        });
+
+        decreaseButton.addEventListener('click', ()=>{
+            media.decreaseSwapSound();
+            this.#iconForOnOffButton();
+        });
     }
 
     #closeSettings(){
@@ -65,6 +85,35 @@ class Settings extends WorkiWithHtml{
         button.addEventListener('click', ()=>{
             visbilityOfLayer.changeVisibilityOfLayer(this.element, HIDDEN_LAYER)
         })
+    }
+
+    //choose icon for swap sound on-off button relative to the volume
+    #iconForOnOffButton=()=>{
+        const iconContainer = this.bindToElement(SWAP_SOUND_BUTTON_ICON_SPAN_ID);
+
+        for(let i = 0; i < this.listOfSwapSoundButtonIcons.length; i++){
+
+            const {iconClass} = this.listOfSwapSoundButtonIcons[i];
+            iconContainer.classList.remove(iconClass);
+
+        }
+        
+        if(media.swapVolume > 0 && media.swapVolume < .6){//medium volume
+
+            const {iconClass} = this.listOfSwapSoundButtonIcons[1]
+            iconContainer.classList.add(iconClass);
+
+        }else if(media.swapVolume >= .6){ //hight volume
+
+            const {iconClass} = this.listOfSwapSoundButtonIcons[2]
+            iconContainer.classList.add(iconClass);
+
+        }else{//mute volume
+
+            const {iconClass} = this.listOfSwapSoundButtonIcons[0]
+            iconContainer.classList.add(iconClass);
+
+        }
     }
 }
 

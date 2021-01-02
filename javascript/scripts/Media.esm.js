@@ -13,15 +13,14 @@ class Media{
     #backgroundMusic = null;
 
     //music
-    increaseMusicVolume(){
+    increaseMusicVolume = ()=>{
         this.musicVolume += .1;
-
         if(this.musicVolume > 1) this.musicVolume = 1;
 
         if(this.#backgroundMusic) this.#backgroundMusic.volume = this.musicVolume;
     }
 
-    decreaseMusicVolume(){
+    decreaseMusicVolume = ()=>{
         this.musicVolume -= .1;
 
         if(this.musicVolume < 0) this.musicVolume = 0;
@@ -29,14 +28,14 @@ class Media{
         if(this.#backgroundMusic) this.#backgroundMusic.volume = this.musicVolume;
     }
 
-    playBackgroundMusic(){
+    playBackgroundMusic = ()=>{
         if(!this.allowedMusic) return;
 
         this.#backgroundMusic.loop = true;
         if(this.#backgroundMusic) this.#backgroundMusic.play();
     }
 
-    stopBackgroundMusic(){
+    stopBackgroundMusic = ()=>{
         if(this.#backgroundMusic) this.#backgroundMusic.pause();
     }
 
@@ -90,7 +89,7 @@ class Media{
         return !!this.#backgroundMusic;
     }
 
-    toggleMusicOnOff(){
+    toggleMusicOnOff = ()=>{
         if(this.allowedMusic){
             this.allowedMusic = false;
             this.stopBackgroundMusic();
