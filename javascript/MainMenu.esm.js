@@ -32,7 +32,7 @@ class MainMenu extends WorkiWithHtml{
     }
 
     #showSettings=()=>{
-        console.log('ustawienia')
+        visbilityOfLayer.changeVisibilityOfLayer(settings.element, VISIBLE_LAYER)
     }
 }
 

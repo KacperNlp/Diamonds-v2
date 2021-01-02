@@ -73,6 +73,14 @@ class Media{
         return !!this.#swapSound;
     }
 
+    toggleSwapSound(){
+        if(this.allowedSwapSound){
+            this.allowedSwapSound = false;
+        }else{
+            this.allowedSwapSound = true;
+        }
+    }
+
     set backgroundMusic(music){
         this.#backgroundMusic = music;
         this.#backgroundMusic.volume = this.musicVolume;
