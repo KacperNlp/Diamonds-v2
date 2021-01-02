@@ -55,7 +55,7 @@ export const gameLevels = [
         level: 3,
         numberOfKinds: 6,
         pointsToPassLevel: 10000,
-        playerMovement: 5,
+        playerMovement: 40,
         mapArrangement: generateGameBoard,
     },{
         level: 4,

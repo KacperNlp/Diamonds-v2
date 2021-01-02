@@ -7,9 +7,10 @@ import {mouseController} from './MouseController.esm.js'
 import { DIAMOND_HEIGHT, DIAMOND_WIDTH } from './Diamond.esm.js';
 import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from '../gameData/gameLevels.esm.js'
 import {gameResult} from './GameResult.esm.js'
-import { visbilityOfLayer, VISIBLE_LAYER } from './VisibilityOfLayer.esm.js';
+import { HIDDEN_LAYER, visbilityOfLayer, VISIBLE_LAYER } from './VisibilityOfLayer.esm.js';
 import { userData } from './UserData.esm.js';
 import { movementPossibilities } from './MovementPossibilities.esm.js'
+import { levelsLayer } from './LevelsLayer.esm.js';
 
 const GAME_MAP_CONTAINER_ID = 'js-game-level-container';
 const GAME_STATS_CONTAINERS_ID = {
@@ -22,6 +23,7 @@ const GAME_STATS_CONTAINERS_ID = {
 const LAST_DIAMONDS_ARRAY_INDEX = NUMBER_OF_ROWS * NUMBER_OF_COLUMNS - 1;
 const SWAPING_SPEED = 8;
 const TRANSPARENCY_SPEED = 25;
+const RETURN_TO_LEVELS_LAYER_BUTTON_ID = 'js-return-to-levels-layer';
 
 
 class Game extends WorkiWithHtml{
@@ -41,23 +43,44 @@ class Game extends WorkiWithHtml{
 
         media.isInLevel = true;
 
+        this.#returnButton();
         this.#gamePanelAnimation();
     }
 
+    //return to levels layer 
+    #returnButton(){
+        this.button = this.bindToElement(RETURN_TO_LEVELS_LAYER_BUTTON_ID);
+
+        this.button.addEventListener('click', this.#returnToLevelsLayer)
+    }
+
+    #returnToLevelsLayer = (e)=>{
+
+        media.isInLevel = false;
+        this.button.removeEventListener(e.type, this.#returnToLevelsLayer)
+
+        visbilityOfLayer.changeVisibilityOfLayer(this.element, HIDDEN_LAYER);
+        visbilityOfLayer.changeVisibilityOfLayer(levelsLayer.element, VISIBLE_LAYER);
+        levelsLayer.initLevelsLayer();
+    }
+    
+
     #gamePanelAnimation(){
-        movementPossibilities.checkPossibilityMovement();
-        this.#handleMouseState();
-        this.#handleMouseClick();
-        this.#findMatches();
-        this.#moveDiamonds();
-        this.#hideDiamonds();
-        this.#countScore();
-        this.#revertSwap();
-        this.#clearMatched();
-        this.#updateGameStats();
-        canvas.drawCanvasBackground();
-        this.#drawDiamonds();
-        this.#checksEndGame()
+        if(media.isInLevel){
+            movementPossibilities.checkPossibilityMovement();
+            this.#handleMouseState();
+            this.#handleMouseClick();
+            this.#findMatches();
+            this.#moveDiamonds();
+            this.#hideDiamonds();
+            this.#countScore();
+            this.#revertSwap();
+            this.#clearMatched();
+            this.#updateGameStats();
+            canvas.drawCanvasBackground();
+            this.#drawDiamonds();
+            this.#checksEndGame()
+        }
     }
 
     #drawDiamonds(){
