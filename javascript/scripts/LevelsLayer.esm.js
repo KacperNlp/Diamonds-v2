@@ -81,7 +81,10 @@ class LevelsLayer extends WorkiWithHtml{
         button.classList.add(LEVEL_BUTTONS_CLASS);
 
         if(isUnlocked) button.classList.add(UNLOCKED_LEVEL_BUTTON_CLASS)
-        else  button.classList.add(LOCKED_LEVEL_BUTTON_CLASS)
+        else{
+            button.classList.add(LOCKED_LEVEL_BUTTON_CLASS)
+            button.innerHTML += `<span class="fas fa-lock"></span>`
+        } 
     }
 
     //event on button

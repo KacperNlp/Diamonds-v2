@@ -25,12 +25,11 @@
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
-    @media (min-width: 700px) {
-      grid-template-columns: repeat(5, 1fr);
+    @media (min-width: 650px) {
+      grid-template-columns: repeat(2, 1fr);
       width: 70%;
     }
     @media (min-width: 1000px) {
-      grid-template-columns: repeat(2, 1fr);
       width: 700px;
       height: 700px;
     }
@@ -39,6 +38,7 @@
 
 //styles of level buttons
 .level-button {
+  position: relative;
   width: 150px;
   height: 150px;
   border: 6px solid $fontColor;
@@ -61,5 +61,14 @@
     color: $backGround;
     border-radius: 0;
     border-color: darken($fontColor, 20%);
+  }
+
+  & span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10rem;
+    opacity: 0.2;
   }
 }

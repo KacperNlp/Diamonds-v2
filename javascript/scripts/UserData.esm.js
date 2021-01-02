@@ -16,7 +16,12 @@ class UserData{
     }
 
     unlockNewLevel(level){
-        localStorage.setItem(String(level + 1), JSON.stringify({active:true, score:0}));
+        const lvl = localStorage.getItem(String(level + 1));
+        const {active} = JSON.parse(lvl)
+        if(active) return 
+        else{
+            localStorage.setItem(String(level + 1), JSON.stringify({active:true, score:0}));
+        }
     }
 
     getHighestScore(level){
