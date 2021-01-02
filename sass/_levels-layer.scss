@@ -12,33 +12,44 @@
   }
 
   &__container {
-    width: 50%;
+    width: 90%;
     height: 70%;
     padding: 30px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
     justify-items: center;
     align-items: center;
     background: $canvasBg;
     border: 2px solid $fontColor;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+    @media (min-width: 700px) {
+      grid-template-columns: repeat(5, 1fr);
+      width: 70%;
+    }
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(2, 1fr);
+      width: 700px;
+      height: 700px;
+    }
   }
 }
 
 //styles of level buttons
 .level-button {
-  width: 50px;
-  height: 50px;
-  border: 2px solid $fontColor;
-  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 6px solid $fontColor;
+  border-radius: 20px;
   background-color: transparent;
   transition: 0.7s;
   color: $fontColor;
-  font-size: 1.5rem;
+  font-size: 3rem;
   cursor: pointer;
   outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   &.locked {
     background: #555;
@@ -48,7 +59,7 @@
   &.unlocked:hover {
     background: $fontColor;
     color: $backGround;
-    border-radius: 30%;
+    border-radius: 0;
     border-color: darken($fontColor, 20%);
   }
 }
