@@ -17,8 +17,7 @@ class UserData{
 
     unlockNewLevel(level){
         const lvl = localStorage.getItem(String(level + 1));
-        const {active} = JSON.parse(lvl)
-        if(active) return 
+        if(!!lvl) return 
         else{
             localStorage.setItem(String(level + 1), JSON.stringify({active:true, score:0}));
         }

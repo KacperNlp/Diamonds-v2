@@ -224,7 +224,6 @@ class Game extends WorkiWithHtml{
         this.gameState.getGameMap().forEach(diamond => this.score += diamond.match);
 
         if(!!this.score & !this.gameState.getIsMoving()){
-            console.log(this.score)
             this.gameState.increaseCurrentScore(this.score);
         }
     }

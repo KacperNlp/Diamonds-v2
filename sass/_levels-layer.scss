@@ -59,7 +59,7 @@
   &.unlocked:hover {
     background: $fontColor;
     color: $backGround;
-    border-radius: 0;
+    transform: scale(1.05);
     border-color: darken($fontColor, 20%);
   }
 
