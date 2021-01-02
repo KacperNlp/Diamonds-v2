@@ -1,6 +1,8 @@
 import {WorkiWithHtml} from './scripts/WorkiWithHtml.esm.js';
 import {levelsLayer} from './scripts/LevelsLayer.esm.js'
 import {visbilityOfLayer, HIDDEN_LAYER, VISIBLE_LAYER} from './scripts/VisibilityOfLayer.esm.js'
+import {settings} from './scripts/Settings.esm.js';
+import {media} from './scripts/Media.esm.js'
 
 
 const START_GAME_BUTTON_ID = 'js-menu-star-game-button';
@@ -11,6 +13,7 @@ class MainMenu extends WorkiWithHtml{
     constructor(){
         super(MENU_LAYER_ID);
         this.bindToElements();
+        media.playBackgroundMusic();
     }
 
     bindToElements(){

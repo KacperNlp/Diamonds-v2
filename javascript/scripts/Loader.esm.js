@@ -34,6 +34,12 @@ class Loader extends WorkiWithHtml{
         return image;
     }
 
+    loadSound(soundUrl){
+        const audio = new Audio();
+        audio.src = soundUrl;
+        return audio;
+    }
+
     #itemLoaded = (event) =>{
         event.target.removeEventListener(event.type, this.#itemLoaded)
 

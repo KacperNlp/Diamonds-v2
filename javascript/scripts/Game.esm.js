@@ -209,6 +209,9 @@ class Game extends WorkiWithHtml{
         this.gameState.getGameMap().forEach(diamond =>{
             if(diamond.match && diamond.alpha >= TRANSPARENCY_SPEED){
                 diamond.alpha -= TRANSPARENCY_SPEED;
+                if(diamond.alpha <= TRANSPARENCY_SPEED){
+                    media.playSwapSound();
+                }
                 this.gameState.setIsMoving(true);
             }
         })

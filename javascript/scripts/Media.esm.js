@@ -82,6 +82,16 @@ class Media{
         return !!this.#backgroundMusic;
     }
 
+    toggleMusicOnOff(){
+        if(this.allowedMusic){
+            this.allowedMusic = false;
+            this.stopBackgroundMusic();
+        }else{
+            this.allowedMusic = true;
+            this.playBackgroundMusic();
+        }
+    }
+
     get diamondSprite(){
         return this.#diamondSprite;
     }
