@@ -1,7 +1,7 @@
 import {loader} from './Loader.esm.js'
 import {WorkiWithHtml} from './WorkiWithHtml.esm.js'
 import {media} from './Media.esm.js';
-import {HIDDEN_LAYER, visbilityOfLayer} from './VisibilityOfLayer.esm.js'
+import {HIDDEN_LAYER, visbilityOfLayer, VISIBLE_LAYER} from './VisibilityOfLayer.esm.js'
 
 const SWAP_SOUND_SRC = '/assets/audio/mixkit-bubbly-achievement-tone-3193.wav';
 const BACKGROUND_MUSIC_SRC = '/assets/audio/Calvin Harris - josh pan (music 1).mp3';
@@ -18,21 +18,34 @@ const CLOSE_SETTIGNS_BUTTON_ID = 'js-close-settings-button';
 const SETTINGS_LAYER_ID = 'js-settings';
 
 const SWAP_SOUND_BUTTON_ICON_SPAN_ID = 'js-swap-soun-icon'
+const SETTINGS_BUTTONS_CLASS = '.settings-button';
 
 class Settings extends WorkiWithHtml{
     constructor(){
         super(SETTINGS_LAYER_ID)
-        this.#initSettinga();
+        this.#initSettings();
         this.listOfSwapSoundButtonIcons = [
             {iconClass: 'fa-volume-mute',},
             {iconClass: 'fa-volume-down',},
             {iconClass: 'fa-volume-up',},
-        ]
+        ];
     }
 
-    #initSettinga(){
+    #initSettings(){
+        this.#handleToggleSettingsButtons()
         this.#setMusicAndSwapSound();
         this.#settingsButtonsHandle();
+    }
+
+    #handleToggleSettingsButtons(){
+
+        const buttons = this.bindToElementsBySelector(SETTINGS_BUTTONS_CLASS);
+
+        buttons.forEach(button =>{
+            button.addEventListener('click', ()=>{
+                visbilityOfLayer.changeVisibilityOfLayer(this.element, VISIBLE_LAYER)
+            })
+        })
     }
 
     #setMusicAndSwapSound(){

@@ -28,7 +28,8 @@
   }
 
   &__button {
-    padding: 15px 35px;
+    width: 90px;
+    height: 60px;
     background: transparent;
     border: 2px solid $fontColor;
     color: $fontColor;
@@ -61,5 +62,11 @@
       background: $fontColor;
       color: $canvasBg;
     }
+  }
+
+  &-button {
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
   }
 }
